@@ -83,6 +83,10 @@ def applyHistogramVer(ver):
             cv2.imwrite(file_path, image)
 
 
+def gaussian():
+    pass
+
+
 def imageAugmentation():
     createDirectories()
     applyHistogramVer("Hver1")
