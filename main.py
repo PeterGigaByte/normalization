@@ -50,8 +50,8 @@ def createDirectories():
             os.makedirs(pathAugmentation + "\\augmentation" + dir)
 
 
-def applyEffect(ver):
-    save_path = pathAugmentation + "\\augmentation\\histogram_eq\\" + ver + "\\"
+def applyEffect(ver, directory):
+    save_path = pathAugmentation + "\\augmentation\\" + directory + "\\" + ver + "\\"
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     for i in range(1, bucket_size + 1, 1):
@@ -99,20 +99,20 @@ def applyEffect(ver):
 
 def imageAugmentation():
     createDirectories()
-    applyEffect("Hver1")
-    applyEffect("Hver2")
-    applyEffect("Hver3")
-    applyEffect("Hver4")
-    applyEffect("Hver5")
-    applyEffect("Hver6")
-    applyEffect("Hver7")
-    applyEffect("Gver1")
-    applyEffect("Gver2")
-    applyEffect("Gver3")
-    applyEffect("Gver4")
-    applyEffect("Gver5")
-    applyEffect("Gver6")
-    applyEffect("Gver7")
+    applyEffect("Hver1", "histogram_eq")
+    applyEffect("Hver2", "histogram_eq")
+    applyEffect("Hver3", "histogram_eq")
+    applyEffect("Hver4", "histogram_eq")
+    applyEffect("Hver5", "histogram_eq")
+    applyEffect("Hver6", "histogram_eq")
+    applyEffect("Hver7", "histogram_eq")
+    applyEffect("Gver1", "blur")
+    applyEffect("Gver2", "blur")
+    applyEffect("Gver3", "blur")
+    applyEffect("Gver4", "blur")
+    applyEffect("Gver5", "blur")
+    applyEffect("Gver6", "blur")
+    applyEffect("Gver7", "blur")
 
 
 if __name__ == "__main__":
