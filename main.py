@@ -11,9 +11,10 @@ path = "C:\\Users\\barad\\PycharmProjects\\TP\\scrabble-gan\\res\\data\\iamDB\\w
 pathAugmentation = "C:\\Users\\barad\\PycharmProjects\\normalization-tp\\res\\"
 bucket_size = 17
 
-#path = "pictures\\"
-#pathAugmentation = "pokus"
-#bucket_size = 15
+
+# path = "pictures\\"
+# pathAugmentation = "pokus"
+# bucket_size = 15
 
 
 def deleteNoWords():
@@ -55,6 +56,15 @@ def createDirectories():
             os.makedirs(pathAugmentation + "\\augmentation" + dir)
 
 
+def createTextDocument(textPath):
+    text = os.path.splitext(textPath)
+    text = text[0] + ".txt"
+    with open(text) as f:
+        lines = f.read()  ##Assume the sample file has 3 lines
+        first = lines.split('\n', 1)[0]
+    return first, os.path.splitext(text)[1]
+
+
 def applyEffect(ver, directory):
     save_path = pathAugmentation + "\\augmentation\\" + directory + "\\" + ver + "\\"
     if not os.path.exists(save_path):
@@ -65,8 +75,9 @@ def applyEffect(ver, directory):
         file_list = [fi for fi in file_list if fi.endswith(".png")]
         for file in file_list:
             file_path = reading_dir + file
+            word = createTextDocument(file_path)
             image = Image.open(file_path)
-
+            createTextDocument(file_path)
             if not os.path.exists(save_path + "\\" + str(i)):
                 os.makedirs(save_path + "\\" + str(i))
             save_file = save_path + "\\" + str(i) + "\\" + file
@@ -110,7 +121,7 @@ def applyEffect(ver, directory):
             # Sharpness
             if ver == "Sver1":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius = 8, sigma = 4)
+                    img.sharpen(radius=8, sigma=4)
                     img.save(filename=save_file)
             if ver == "Sver2":
                 with wandImage(filename=file_path) as img:
@@ -167,11 +178,13 @@ def applyEffect(ver, directory):
                     img.save(filename=save_file)
             if "N" or "S" not in ver:
                 cv2.imwrite(save_file, image)
+            pathText = os.path.splitext(save_file)[0] + word[1]
+            f = open(pathText, "w+")
+            f.write(word[0])
+            f.close()
 
 
-def imageAugmentation():
-    createDirectories()
-    # histogram eq
+def histogram_eq():
     applyEffect("Hver1", "histogram_eq")
     applyEffect("Hver2", "histogram_eq")
     applyEffect("Hver3", "histogram_eq")
@@ -180,25 +193,28 @@ def imageAugmentation():
     applyEffect("Hver6", "histogram_eq")
     applyEffect("Hver7", "histogram_eq")
 
-    # gaussian blur
-    # applyEffect("Gver1", "blur")
-    # applyEffect("Gver2", "blur")
-    # applyEffect("Gver3", "blur")
-    # applyEffect("Gver4", "blur")
-    # applyEffect("Gver5", "blur")
-    # applyEffect("Gver6", "blur")
-    # applyEffect("Gver7", "blur")
 
-    # gaussian_noise
-    #applyEffect("Nver1", "gaussian_noise")
-    #applyEffect("Nver2", "gaussian_noise")
-    #applyEffect("Nver3", "gaussian_noise")
-    #applyEffect("Nver4", "gaussian_noise")
-    #applyEffect("Nver5", "gaussian_noise")
-    #applyEffect("Nver6", "gaussian_noise")
-    #applyEffect("Nver7", "gaussian_noise")
+def gaussian_blur():
+    applyEffect("Gver1", "blur")
+    applyEffect("Gver2", "blur")
+    applyEffect("Gver3", "blur")
+    applyEffect("Gver4", "blur")
+    applyEffect("Gver5", "blur")
+    applyEffect("Gver6", "blur")
+    applyEffect("Gver7", "blur")
 
-    # sharpen
+
+def gaussian_noise():
+    applyEffect("Nver1", "gaussian_noise")
+    applyEffect("Nver2", "gaussian_noise")
+    applyEffect("Nver3", "gaussian_noise")
+    applyEffect("Nver4", "gaussian_noise")
+    applyEffect("Nver5", "gaussian_noise")
+    applyEffect("Nver6", "gaussian_noise")
+    applyEffect("Nver7", "gaussian_noise")
+
+
+def sharpen():
     applyEffect("Sver1", "sharpen")
     applyEffect("Sver2", "sharpen")
     applyEffect("Sver3", "sharpen")
@@ -206,6 +222,15 @@ def imageAugmentation():
     applyEffect("Sver5", "sharpen")
     applyEffect("Sver6", "sharpen")
     applyEffect("Sver7", "sharpen")
+
+
+def imageAugmentation():
+    createDirectories()
+
+    histogram_eq()
+    gaussian_noise()
+    gaussian_blur()
+    sharpen()
 
 
 
