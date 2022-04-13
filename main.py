@@ -83,6 +83,38 @@ def applyHistogramVer(ver):
             cv2.imwrite(file_path, image)
 
 
+def gaussian(ver):
+    save_path = pathAugmentation + "\\augmentation\\gaussian\\" + ver + "\\"
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+    for i in range(1, bucket_size + 1, 1):
+        reading_dir = path + str(i) + '\\'
+        file_list = os.listdir(reading_dir)
+        file_list = [fi for fi in file_list if fi.endswith(".png")]
+        for file in file_list:
+            file_path = reading_dir + file
+            image = Image.open(file_path)
+            if not os.path.exists(save_path + "\\" + str(i)):
+                os.makedirs(save_path + "\\" + str(i))
+            file_path = save_path + "\\" + str(i) + "\\" + file
+            image = np.asarray(image)
+            if ver == "Gver1":
+                image = cv2.GaussianBlur(image,(3,3),0)
+            if ver == "Gver2":
+                image = cv2.GaussianBlur(image,(3,3),1)
+            if ver == "Gver3":
+                image = cv2.GaussianBlur(image,(3,3),3)
+            if ver == "Gver4":
+                image = cv2.GaussianBlur(image,(5,5),0)
+            if ver == "Gver5":
+                image = cv2.GaussianBlur(image,(5,5),1)
+            if ver == "Gver6":
+                image = cv2.GaussianBlur(image,(5,5),3)
+            if ver == "Gver7":
+                image = cv2.GaussianBlur(image,(7,7),0)
+            cv2.imwrite(file_path, image)
+
+
 def imageAugmentation():
     createDirectories()
     applyHistogramVer("Hver1")
@@ -92,6 +124,13 @@ def imageAugmentation():
     applyHistogramVer("Hver5")
     applyHistogramVer("Hver6")
     applyHistogramVer("Hver7")
+    gaussian("Gver1")
+    gaussian("Gver2")
+    gaussian("Gver3")
+    gaussian("Gver4")
+    gaussian("Gver5")
+    gaussian("Gver6")
+    gaussian("Gver7")
 
 
 if __name__ == "__main__":
