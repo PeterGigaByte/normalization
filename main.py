@@ -7,7 +7,7 @@ from PIL import Image
 from skimage import exposure
 
 path = "C:\\Users\\barad\\PycharmProjects\\TP\\scrabble-gan\\res\\data\\iamDB\\words-Reading\\"
-pathAugmentation = "C:\\Users\\barad\\PycharmProjects\\TP\\"
+pathAugmentation = "C:\\Users\\barad\\PycharmProjects\\normalization-tp\\res\\"
 bucket_size = 17
 
 
