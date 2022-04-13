@@ -68,7 +68,7 @@ def applyEffect(ver, directory):
             if ver == "Hver1":
                 image = cv2.equalizeHist(image)
             if ver == "Hver2":
-                image = exposure.equalize_adapthist(image, clip_limit=0.03)
+                image = exposure.equalize_adapthist(image, clip_limit=50)
             if ver == "Hver3":
                 p2, p98 = np.percentile(image, (2, 98))
                 image = exposure.rescale_intensity(image, in_range=(p2, p98))
@@ -94,25 +94,53 @@ def applyEffect(ver, directory):
                 image = cv2.GaussianBlur(image, (5, 5), 3)
             if ver == "Gver7":
                 image = cv2.GaussianBlur(image, (7, 7), 0)
+            if ver == "Sver1":
+                return
+            if ver == "Sver2":
+                return
+            if ver == "Sver3":
+                return
+            if ver == "Sver4":
+                return
+            if ver == "Sver5":
+                return
+            if ver == "Sver6":
+                return
+            if ver == "Sver7":
+                return
+            if ver == "Nver1":
+                return
+            if ver == "Nver2":
+                return
+            if ver == "Nver3":
+                return
+            if ver == "Nver4":
+                return
+            if ver == "Nver5":
+                return
+            if ver == "Nver6":
+                return
+            if ver == "Nver7":
+                return
             cv2.imwrite(file_path, image)
 
 
 def imageAugmentation():
     createDirectories()
-    applyEffect("Hver1", "histogram_eq")
+    #applyEffect("Hver1", "histogram_eq")
     applyEffect("Hver2", "histogram_eq")
-    applyEffect("Hver3", "histogram_eq")
-    applyEffect("Hver4", "histogram_eq")
-    applyEffect("Hver5", "histogram_eq")
-    applyEffect("Hver6", "histogram_eq")
-    applyEffect("Hver7", "histogram_eq")
-    applyEffect("Gver1", "blur")
-    applyEffect("Gver2", "blur")
-    applyEffect("Gver3", "blur")
-    applyEffect("Gver4", "blur")
-    applyEffect("Gver5", "blur")
-    applyEffect("Gver6", "blur")
-    applyEffect("Gver7", "blur")
+    #applyEffect("Hver3", "histogram_eq")
+    #applyEffect("Hver4", "histogram_eq")
+    #applyEffect("Hver5", "histogram_eq")
+    #applyEffect("Hver6", "histogram_eq")
+    #applyEffect("Hver7", "histogram_eq")
+    #applyEffect("Gver1", "blur")
+    #applyEffect("Gver2", "blur")
+    #applyEffect("Gver3", "blur")
+    #applyEffect("Gver4", "blur")
+    #applyEffect("Gver5", "blur")
+    #applyEffect("Gver6", "blur")
+    #applyEffect("Gver7", "blur")
 
 
 if __name__ == "__main__":
