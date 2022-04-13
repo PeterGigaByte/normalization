@@ -65,6 +65,7 @@ def applyEffect(ver, directory):
                 os.makedirs(save_path + "\\" + str(i))
             file_path = save_path + "\\" + str(i) + "\\" + file
             image = np.asarray(image)
+            # Histogram equ
             if ver == "Hver1":
                 image = cv2.equalizeHist(image)
             if ver == "Hver2":
@@ -80,6 +81,7 @@ def applyEffect(ver, directory):
                 return
             if ver == "Hver7":
                 return
+            # Gaussian blur
             if ver == "Gver1":
                 image = cv2.GaussianBlur(image, (3, 3), 0)
             if ver == "Gver2":
@@ -94,6 +96,7 @@ def applyEffect(ver, directory):
                 image = cv2.GaussianBlur(image, (5, 5), 3)
             if ver == "Gver7":
                 image = cv2.GaussianBlur(image, (7, 7), 0)
+            # Sharpness
             if ver == "Sver1":
                 return
             if ver == "Sver2":
@@ -108,6 +111,7 @@ def applyEffect(ver, directory):
                 return
             if ver == "Sver7":
                 return
+            # Noise
             if ver == "Nver1":
                 return
             if ver == "Nver2":
