@@ -7,13 +7,13 @@ from PIL import Image
 from skimage import exposure
 from wand.image import Image as wandImage
 
-path = "C:\\Users\\barad\\PycharmProjects\\TP\\scrabble-gan\\res\\data\\iamDB\\words-Reading\\"
-pathAugmentation = "C:\\Users\\barad\\PycharmProjects\\normalization-tp\\res\\"
-bucket_size = 17
+#path = "C:\\Users\\barad\\PycharmProjects\\TP\\scrabble-gan\\res\\data\\iamDB\\words-Reading\\"
+#pathAugmentation = "C:\\Users\\barad\\PycharmProjects\\normalization-tp\\res\\"
+#bucket_size = 17
 
-#path = "pictures\\"
-#pathAugmentation = "pokus"
-#bucket_size = 15
+path = "pictures\\"
+pathAugmentation = "pokus"
+bucket_size = 15
 
 
 def deleteNoWords():
@@ -110,31 +110,31 @@ def applyEffect(ver, directory):
             # Sharpness
             if ver == "Sver1":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius = 8, sigma = 4)
+                    img.adaptive_sharpen(sigma = 4)
                     img.save(filename=save_file)
             if ver == "Sver2":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius=16, sigma=4)
+                    img.adaptive_sharpen(sigma=8)
                     img.save(filename=save_file)
             if ver == "Sver3":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius=16, sigma=8)
+                    img.adaptive_sharpen(sigma=6)
                     img.save(filename=save_file)
             if ver == "Sver4":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius=16, sigma=16)
+                    img.adaptive_sharpen(sigma=10)
                     img.save(filename=save_file)
             if ver == "Sver5":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius=32, sigma=8)
+                    img.adaptive_sharpen(sigma=16)
                     img.save(filename=save_file)
             if ver == "Sver6":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius=32, sigma=16)
+                    img.adaptive_sharpen(sigma=20)
                     img.save(filename=save_file)
             if ver == "Sver7":
                 with wandImage(filename=file_path) as img:
-                    img.sharpen(radius=32, sigma=32)
+                    img.adaptive_sharpen(sigma=32)
                     img.save(filename=save_file)
             # Noise
             if ver == "Nver1":
@@ -199,13 +199,13 @@ def imageAugmentation():
     #applyEffect("Nver7", "gaussian_noise")
 
     # sharpen
-    applyEffect("Sver1", "sharpen")
+    #applyEffect("Sver1", "sharpen")
     applyEffect("Sver2", "sharpen")
-    applyEffect("Sver3", "sharpen")
-    applyEffect("Sver4", "sharpen")
-    applyEffect("Sver5", "sharpen")
-    applyEffect("Sver6", "sharpen")
-    applyEffect("Sver7", "sharpen")
+    #applyEffect("Sver3", "sharpen")
+    #applyEffect("Sver4", "sharpen")
+    #applyEffect("Sver5", "sharpen")
+    #applyEffect("Sver6", "sharpen")
+    #applyEffect("Sver7", "sharpen")
 
 
 
