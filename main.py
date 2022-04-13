@@ -11,6 +11,10 @@ path = "C:\\Users\\barad\\PycharmProjects\\TP\\scrabble-gan\\res\\data\\iamDB\\w
 pathAugmentation = "C:\\Users\\barad\\PycharmProjects\\normalization-tp\\res\\"
 bucket_size = 17
 
+#path = "pictures\\"
+#pathAugmentation = "pokus"
+#bucket_size = 15
+
 
 def deleteNoWords():
     char_vec = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -105,19 +109,33 @@ def applyEffect(ver, directory):
                 image = cv2.GaussianBlur(image, (3, 3), 4)
             # Sharpness
             if ver == "Sver1":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.sharpen(radius = 8, sigma = 4)
+                    img.save(filename=save_file)
             if ver == "Sver2":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.sharpen(radius=16, sigma=4)
+                    img.save(filename=save_file)
             if ver == "Sver3":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.sharpen(radius=16, sigma=8)
+                    img.save(filename=save_file)
             if ver == "Sver4":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.sharpen(radius=16, sigma=16)
+                    img.save(filename=save_file)
             if ver == "Sver5":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.sharpen(radius=32, sigma=8)
+                    img.save(filename=save_file)
             if ver == "Sver6":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.sharpen(radius=32, sigma=16)
+                    img.save(filename=save_file)
             if ver == "Sver7":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.sharpen(radius=32, sigma=32)
+                    img.save(filename=save_file)
             # Noise
             if ver == "Nver1":
                 with wandImage(filename=file_path) as img:
@@ -147,7 +165,7 @@ def applyEffect(ver, directory):
                 with wandImage(filename=file_path) as img:
                     img.noise("gaussian", attenuate=0.6)
                     img.save(filename=save_file)
-            if "N" not in ver:
+            if "N" or "S" not in ver:
                 cv2.imwrite(save_file, image)
 
 
@@ -179,6 +197,16 @@ def imageAugmentation():
     #applyEffect("Nver5", "gaussian_noise")
     #applyEffect("Nver6", "gaussian_noise")
     #applyEffect("Nver7", "gaussian_noise")
+
+    # sharpen
+    applyEffect("Sver1", "sharpen")
+    applyEffect("Sver2", "sharpen")
+    applyEffect("Sver3", "sharpen")
+    applyEffect("Sver4", "sharpen")
+    applyEffect("Sver5", "sharpen")
+    applyEffect("Sver6", "sharpen")
+    applyEffect("Sver7", "sharpen")
+
 
 
 if __name__ == "__main__":
