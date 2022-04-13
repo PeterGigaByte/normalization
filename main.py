@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 from PIL import Image
 from skimage import exposure
+from wand.image import Image as wandImage
 
 path = "C:\\Users\\barad\\PycharmProjects\\TP\\scrabble-gan\\res\\data\\iamDB\\words-Reading\\"
 pathAugmentation = "C:\\Users\\barad\\PycharmProjects\\normalization-tp\\res\\"
@@ -61,15 +62,16 @@ def applyEffect(ver, directory):
         for file in file_list:
             file_path = reading_dir + file
             image = Image.open(file_path)
+
             if not os.path.exists(save_path + "\\" + str(i)):
                 os.makedirs(save_path + "\\" + str(i))
-            file_path = save_path + "\\" + str(i) + "\\" + file
+            save_file = save_path + "\\" + str(i) + "\\" + file
             image = np.asarray(image)
             # Histogram equ
             if ver == "Hver1":
                 image = cv2.equalizeHist(image)
             if ver == "Hver2":
-                image = exposure.equalize_adapthist(image, clip_limit=50)
+                image = exposure.equalize_adapthist(image, clip_limit=0.90)
             if ver == "Hver3":
                 p2, p98 = np.percentile(image, (2, 98))
                 image = exposure.rescale_intensity(image, in_range=(p2, p98))
@@ -113,38 +115,65 @@ def applyEffect(ver, directory):
                 return
             # Noise
             if ver == "Nver1":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.noise("laplacian", attenuate=0.8)
+                    img.save(filename=save_file)
             if ver == "Nver2":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.noise("laplacian", attenuate=1.0)
+                    img.save(filename=save_file)
             if ver == "Nver3":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.noise("gaussian", attenuate=1.0)
+                    img.save(filename=save_file)
             if ver == "Nver4":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.noise("gaussian", attenuate=0.5)
+                    img.save(filename=save_file)
             if ver == "Nver5":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.noise("gaussian", attenuate=0.8)
+                    img.save(filename=save_file)
             if ver == "Nver6":
-                return
+                with wandImage(filename=file_path) as img:
+                    img.noise("gaussian", attenuate=0.7)
+                    img.save(filename=save_file)
             if ver == "Nver7":
-                return
-            cv2.imwrite(file_path, image)
+                with wandImage(filename=file_path) as img:
+                    img.noise("gaussian", attenuate=0.6)
+                    img.save(filename=save_file)
+            if "N" not in ver:
+                cv2.imwrite(save_file, image)
 
 
 def imageAugmentation():
     createDirectories()
-    #applyEffect("Hver1", "histogram_eq")
-    applyEffect("Hver2", "histogram_eq")
-    #applyEffect("Hver3", "histogram_eq")
-    #applyEffect("Hver4", "histogram_eq")
-    #applyEffect("Hver5", "histogram_eq")
-    #applyEffect("Hver6", "histogram_eq")
-    #applyEffect("Hver7", "histogram_eq")
-    #applyEffect("Gver1", "blur")
-    #applyEffect("Gver2", "blur")
-    #applyEffect("Gver3", "blur")
-    #applyEffect("Gver4", "blur")
-    #applyEffect("Gver5", "blur")
-    #applyEffect("Gver6", "blur")
-    #applyEffect("Gver7", "blur")
+    # histogram eq
+    # applyEffect("Hver1", "histogram_eq")
+    # applyEffect("Hver2", "histogram_eq")
+    # applyEffect("Hver3", "histogram_eq")
+    # applyEffect("Hver4", "histogram_eq")
+    # applyEffect("Hver5", "histogram_eq")
+    # applyEffect("Hver6", "histogram_eq")
+    # applyEffect("Hver7", "histogram_eq")
+
+    # gaussian blur
+    # applyEffect("Gver1", "blur")
+    # applyEffect("Gver2", "blur")
+    # applyEffect("Gver3", "blur")
+    # applyEffect("Gver4", "blur")
+    # applyEffect("Gver5", "blur")
+    # applyEffect("Gver6", "blur")
+    # applyEffect("Gver7", "blur")
+
+    # gaussian_noise
+    #applyEffect("Nver1", "gaussian_noise")
+    #applyEffect("Nver2", "gaussian_noise")
+    #applyEffect("Nver3", "gaussian_noise")
+    #applyEffect("Nver4", "gaussian_noise")
+    #applyEffect("Nver5", "gaussian_noise")
+    #applyEffect("Nver6", "gaussian_noise")
+    #applyEffect("Nver7", "gaussian_noise")
 
 
 if __name__ == "__main__":
