@@ -50,8 +50,8 @@ def createDirectories():
             os.makedirs(pathAugmentation + "\\augmentation" + dir)
 
 
-def applyEffect(ver, directory):
-    save_path = pathAugmentation + "\\augmentation\\" + directory + "\\" + ver + "\\"
+def applyEffect(ver):
+    save_path = pathAugmentation + "\\augmentation\\histogram_eq\\" + ver + "\\"
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     for i in range(1, bucket_size + 1, 1):
@@ -81,38 +81,38 @@ def applyEffect(ver, directory):
             if ver == "Hver7":
                 return
             if ver == "Gver1":
-                image = cv2.GaussianBlur(image, (3, 3), 0)
+                image = cv2.GaussianBlur(image, (1, 1), 1)
             if ver == "Gver2":
-                image = cv2.GaussianBlur(image, (3, 3), 1)
+                image = cv2.GaussianBlur(image, (1, 1), 2)
             if ver == "Gver3":
-                image = cv2.GaussianBlur(image, (3, 3), 3)
+                image = cv2.GaussianBlur(image, (1, 1), 3)
             if ver == "Gver4":
-                image = cv2.GaussianBlur(image, (5, 5), 0)
+                image = cv2.GaussianBlur(image, (3, 3), 1)
             if ver == "Gver5":
-                image = cv2.GaussianBlur(image, (5, 5), 1)
+                image = cv2.GaussianBlur(image, (3, 3), 2)
             if ver == "Gver6":
-                image = cv2.GaussianBlur(image, (5, 5), 3)
+                image = cv2.GaussianBlur(image, (3, 3), 3)
             if ver == "Gver7":
-                image = cv2.GaussianBlur(image, (7, 7), 0)
+                image = cv2.GaussianBlur(image, (5, 5), 1)
             cv2.imwrite(file_path, image)
 
 
 def imageAugmentation():
     createDirectories()
-    applyEffect("Hver1", "histogram_eq")
-    applyEffect("Hver2", "histogram_eq")
-    applyEffect("Hver3", "histogram_eq")
-    applyEffect("Hver4", "histogram_eq")
-    applyEffect("Hver5", "histogram_eq")
-    applyEffect("Hver6", "histogram_eq")
-    applyEffect("Hver7", "histogram_eq")
-    applyEffect("Gver1", "blur")
-    applyEffect("Gver2", "blur")
-    applyEffect("Gver3", "blur")
-    applyEffect("Gver4", "blur")
-    applyEffect("Gver5", "blur")
-    applyEffect("Gver6", "blur")
-    applyEffect("Gver7", "blur")
+    applyEffect("Hver1")
+    applyEffect("Hver2")
+    applyEffect("Hver3")
+    applyEffect("Hver4")
+    applyEffect("Hver5")
+    applyEffect("Hver6")
+    applyEffect("Hver7")
+    applyEffect("Gver1")
+    applyEffect("Gver2")
+    applyEffect("Gver3")
+    applyEffect("Gver4")
+    applyEffect("Gver5")
+    applyEffect("Gver6")
+    applyEffect("Gver7")
 
 
 if __name__ == "__main__":
