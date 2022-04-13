@@ -71,18 +71,23 @@ def applyEffect(ver, directory):
             if ver == "Hver1":
                 image = cv2.equalizeHist(image)
             if ver == "Hver2":
-                image = exposure.equalize_adapthist(image, clip_limit=0.90)
+                p2, p98 = np.percentile(image, (12, 65))
+                image = exposure.rescale_intensity(image, in_range=(p2, p98))
             if ver == "Hver3":
                 p2, p98 = np.percentile(image, (2, 98))
                 image = exposure.rescale_intensity(image, in_range=(p2, p98))
             if ver == "Hver4":
-                return
+                p2, p98 = np.percentile(image, (15, 85))
+                image = exposure.rescale_intensity(image, in_range=(p2, p98))
             if ver == "Hver5":
-                return
+                p2, p98 = np.percentile(image, (23, 77))
+                image = exposure.rescale_intensity(image, in_range=(p2, p98))
             if ver == "Hver6":
-                return
+                p2, p98 = np.percentile(image, (19, 81))
+                image = exposure.rescale_intensity(image, in_range=(p2, p98))
             if ver == "Hver7":
-                return
+                p2, p98 = np.percentile(image, (7, 83))
+                image = exposure.rescale_intensity(image, in_range=(p2, p98))
             # Gaussian blur
             if ver == "Gver1":
                 image = cv2.GaussianBlur(image, (1, 1), 1)
@@ -149,13 +154,13 @@ def applyEffect(ver, directory):
 def imageAugmentation():
     createDirectories()
     # histogram eq
-    # applyEffect("Hver1", "histogram_eq")
-    # applyEffect("Hver2", "histogram_eq")
-    # applyEffect("Hver3", "histogram_eq")
-    # applyEffect("Hver4", "histogram_eq")
-    # applyEffect("Hver5", "histogram_eq")
-    # applyEffect("Hver6", "histogram_eq")
-    # applyEffect("Hver7", "histogram_eq")
+    applyEffect("Hver1", "histogram_eq")
+    applyEffect("Hver2", "histogram_eq")
+    applyEffect("Hver3", "histogram_eq")
+    applyEffect("Hver4", "histogram_eq")
+    applyEffect("Hver5", "histogram_eq")
+    applyEffect("Hver6", "histogram_eq")
+    applyEffect("Hver7", "histogram_eq")
 
     # gaussian blur
     # applyEffect("Gver1", "blur")
